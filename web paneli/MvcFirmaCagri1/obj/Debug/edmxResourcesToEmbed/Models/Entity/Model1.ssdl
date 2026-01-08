@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbladmin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kullanici" Type="nvarchar" MaxLength="10" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tblcagridetay">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cagri" Type="int" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="250" />
+    <Property Name="Tarih" Type="date" />
+    <Property Name="Saat" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tblcagrilar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CagriFirma" Type="int" />
+    <Property Name="Konu" Type="nvarchar" MaxLength="50" />
+    <Property Name="Aciklama" Type="nvarchar(max)" />
+    <Property Name="Durum" Type="bit" />
+    <Property Name="Tarih" Type="date" />
+  </EntityType>
+  <EntityType Name="tbldepartmanlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="tblfirmalar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Yetkili" Type="nvarchar" MaxLength="30" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="20" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="20" />
+    <Property Name="Sektor" Type="nvarchar" MaxLength="30" />
+    <Property Name="il" Type="nvarchar" MaxLength="20" />
+    <Property Name="ilce" Type="nvarchar" MaxLength="30" />
+    <Property Name="Adres" Type="nvarchar" MaxLength="200" />
+    <Property Name="Gorsel" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="tblgorevdetaylar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Gorev" Type="int" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="200" />
+    <Property Name="Tarih" Type="date" />
+    <Property Name="Saat" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="tblgorevler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GorevVeren" Type="int" Nullable="false" />
+    <Property Name="GorevAlan" Type="int" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="500" />
+    <Property Name="Durum" Type="bit" />
+    <Property Name="Tarih" Type="date" />
+  </EntityType>
+  <EntityType Name="tblmesajlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Gonderen" Type="nvarchar" MaxLength="50" />
+    <Property Name="Alici" Type="nvarchar" MaxLength="50" />
+    <Property Name="Konu" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mesaj" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tarih" Type="nvarchar(max)" />
+    <Property Name="Durum" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblpersonel">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="50" />
+    <Property Name="Soyad" Type="nvarchar" MaxLength="30" />
+    <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefon" Type="nvarchar" MaxLength="20" />
+    <Property Name="Görsel" Type="nvarchar" MaxLength="100" />
+    <Property Name="Departman" Type="int" />
+    <Property Name="Durum" Type="bit" />
+  </EntityType>
+  <Association Name="FK_tblcagrilar_tblfirmalar">
+    <End Role="tblfirmalar" Type="Self.tblfirmalar" Multiplicity="0..1" />
+    <End Role="tblcagrilar" Type="Self.tblcagrilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblfirmalar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblcagrilar">
+        <PropertyRef Name="CagriFirma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblgorevdetaylar_tblgorevler">
+    <End Role="tblgorevler" Type="Self.tblgorevler" Multiplicity="0..1" />
+    <End Role="tblgorevdetaylar" Type="Self.tblgorevdetaylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblgorevler">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblgorevdetaylar">
+        <PropertyRef Name="Gorev" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblgorevler_tblpersonel">
+    <End Role="tblpersonel" Type="Self.tblpersonel" Multiplicity="1" />
+    <End Role="tblgorevler" Type="Self.tblgorevler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblpersonel">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblgorevler">
+        <PropertyRef Name="GorevVeren" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblgorevler_tblpersonel1">
+    <End Role="tblpersonel" Type="Self.tblpersonel" Multiplicity="1" />
+    <End Role="tblgorevler" Type="Self.tblgorevler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblpersonel">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblgorevler">
+        <PropertyRef Name="GorevAlan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblpersonel_tbldepartmanlar1">
+    <End Role="tbldepartmanlar" Type="Self.tbldepartmanlar" Multiplicity="0..1" />
+    <End Role="tblpersonel" Type="Self.tblpersonel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbldepartmanlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblpersonel">
+        <PropertyRef Name="Departman" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="tbladmin" EntityType="Self.tbladmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblcagridetay" EntityType="Self.tblcagridetay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblcagrilar" EntityType="Self.tblcagrilar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbldepartmanlar" EntityType="Self.tbldepartmanlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblfirmalar" EntityType="Self.tblfirmalar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblgorevdetaylar" EntityType="Self.tblgorevdetaylar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblgorevler" EntityType="Self.tblgorevler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblmesajlar" EntityType="Self.tblmesajlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblpersonel" EntityType="Self.tblpersonel" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblcagrilar_tblfirmalar" Association="Self.FK_tblcagrilar_tblfirmalar">
+      <End Role="tblfirmalar" EntitySet="tblfirmalar" />
+      <End Role="tblcagrilar" EntitySet="tblcagrilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblgorevdetaylar_tblgorevler" Association="Self.FK_tblgorevdetaylar_tblgorevler">
+      <End Role="tblgorevler" EntitySet="tblgorevler" />
+      <End Role="tblgorevdetaylar" EntitySet="tblgorevdetaylar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblgorevler_tblpersonel" Association="Self.FK_tblgorevler_tblpersonel">
+      <End Role="tblpersonel" EntitySet="tblpersonel" />
+      <End Role="tblgorevler" EntitySet="tblgorevler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblgorevler_tblpersonel1" Association="Self.FK_tblgorevler_tblpersonel1">
+      <End Role="tblpersonel" EntitySet="tblpersonel" />
+      <End Role="tblgorevler" EntitySet="tblgorevler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblpersonel_tbldepartmanlar1" Association="Self.FK_tblpersonel_tbldepartmanlar1">
+      <End Role="tbldepartmanlar" EntitySet="tbldepartmanlar" />
+      <End Role="tblpersonel" EntitySet="tblpersonel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
