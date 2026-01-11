@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="Ekran Görüntüsü (191)" src="https://github.com/user-attachments/assets/b3dfd442-bf71-424b-9926-250694e3549b" />🚀 İş Takip Projesi & Web Yönetim Paneli
+🚀 İş Takip Projesi & Web Yönetim Paneli
 Bu proje, hem masaüstü hem de web tabanlı teknolojileri bir araya getiren kapsamlı bir iş yönetim sistemidir. C# DevExpress ile geliştirilmiş güçlü bir masaüstü uygulaması ve ona eşlik eden modern bir HTML/ASP.NET Web panelinden oluşur.
 
 🛠 Kullanılan Teknolojiler
